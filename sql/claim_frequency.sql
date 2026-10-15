@@ -2,9 +2,9 @@
 
 SELECT 
     Region,
-    COUNT(*) as total_policies,
-    SUM(ClaimNb) as total_claims,
-    SUM(Exposure) as total_exposure,
+    COUNT(*) AS total_policies,
+    SUM(ClaimNb) AS total_claims,
+    SUM(Exposure) AS total_exposure,
     SUM(ClaimNb) / NULLIF(SUM(Exposure), 0) AS claim_frequency
 FROM policies
 GROUP BY Region
@@ -20,9 +20,9 @@ SELECT
         WHEN DrivAge >= 60 THEN 'Senior'
         ELSE 'Unknown'
     END AS age_group,
-    COUNT(*) as total_policies,
-    SUM(ClaimNb) as total_claims,
-    SUM(Exposure) as total_exposure,
+    COUNT(*) AS total_policies,
+    SUM(ClaimNb) AS total_claims,
+    SUM(Exposure) AS total_exposure,
     SUM(ClaimNb) / NULLIF(SUM(Exposure), 0) AS claim_frequency
 FROM policies
 GROUP BY age_group
@@ -38,10 +38,10 @@ SELECT
         WHEN DrivAge >= 60 THEN 'Senior'
         ELSE 'Unknown'
     END AS age_group,
-    VehGas as fuel_type,
-    COUNT(*) as total_policies,
-    SUM(ClaimNb) as total_claims,
-    SUM(Exposure) as total_exposure,
+    VehGas AS fuel_type,
+    COUNT(*) AS total_policies,
+    SUM(ClaimNb) AS total_claims,
+    SUM(Exposure) AS total_exposure,
     SUM(ClaimNb) / NULLIF(SUM(Exposure), 0) AS claim_frequency
 FROM policies
 GROUP BY age_group, fuel_type

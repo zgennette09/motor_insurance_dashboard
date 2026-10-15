@@ -8,9 +8,9 @@ SELECT
         WHEN p.DrivAge >= 60 THEN 'Senior'
         ELSE 'Unknown'
     END AS age_group,
-    COUNT(*) as total_claims,
-    AVG(c.ClaimAmount) as avg_claim_amount,
-    SUM(c.ClaimAmount) as total_claim_amount
+    COUNT(*) AS total_claims,
+    AVG(c.ClaimAmount) AS avg_claim_amount,
+    SUM(c.ClaimAmount) AS total_claim_amount
 FROM policies AS p
 INNER JOIN claims AS c 
     ON p.IDpol = c.IDpol
@@ -30,10 +30,10 @@ INNER JOIN claims AS c
 ORDER BY c.ClaimAmount DESC
 LIMIT 10;
 
--- Calculate average severity of young drivers with claim amount under 250000
+-- Calculate average severity of young drivers with claim amount under 280000
 
 SELECT
-    AVG(c.ClaimAmount) as avg_claim_amount
+    AVG(c.ClaimAmount) AS avg_claim_amount
 FROM policies AS p
 INNER JOIN claims AS c
     ON p.IDpol = c.IDpol
