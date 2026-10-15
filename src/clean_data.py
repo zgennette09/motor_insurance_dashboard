@@ -94,3 +94,14 @@ comparison["Difference"] = (
 print(comparison["Difference"].value_counts().sort_index())
 print("Policies with mismatched counts:",
       (comparison["Difference"] != 0).sum())
+
+# Store into database insurance.db
+import sqlite3
+
+DATABASE_DIR = ROOT_DIR / "data" / "insurance.db"
+conn = sqlite3.connect(DATABASE_DIR)
+
+freq.to_sql("policies", conn, if_exists="replace", index=False)
+sev.to_sql("claims", conn, if_exists="replace", index=False)
+
+conn.close()

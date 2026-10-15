@@ -1,0 +1,40 @@
+-- Join claims and policies to analyze claim severity by age 
+
+SELECT
+    CASE
+        WHEN p.DrivAge < 25 THEN 'Young'
+        WHEN p.DrivAge < 40 THEN 'Early Career'
+        WHEN p.DrivAge < 60 THEN 'Middle Age'
+        WHEN p.DrivAge >= 60 THEN 'Senior'
+        ELSE 'Unknown'
+    END AS age_group,
+    COUNT(*) as total_claims,
+    AVG(c.ClaimAmount) as avg_claim_amount,
+    SUM(c.ClaimAmount) as total_claim_amount
+FROM policies AS p
+INNER JOIN claims AS c 
+    ON p.IDpol = c.IDpol
+GROUP BY age_group
+ORDER BY avg_claim_amount DESC;
+
+-- Find the 10 largest claims
+
+SELECT
+    c.IDpol,
+    p.DrivAge,
+    p.Region,
+    c.ClaimAmount
+FROM policies AS p
+INNER JOIN claims AS c
+    ON p.IDpol = c.IDpol
+ORDER BY c.ClaimAmount DESC
+LIMIT 10;
+
+-- Calculate average severity of young drivers with claim amount under 250000
+
+SELECT
+    AVG(c.ClaimAmount) as avg_claim_amount
+FROM policies AS p
+INNER JOIN claims AS c
+    ON p.IDpol = c.IDpol
+WHERE p.DrivAge < 25 AND c.ClaimAmount < 280000;
