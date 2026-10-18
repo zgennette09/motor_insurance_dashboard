@@ -1,6 +1,7 @@
 WITH regional_frequency AS (
     SELECT
         Region,
+        count(*) AS total_policies, 
         SUM(ClaimNb) AS total_claims,
         SUM(Exposure) AS total_exposure,
         SUM(ClaimNb) / NULLIF(SUM(Exposure), 0) AS claim_frequency
@@ -10,6 +11,7 @@ WITH regional_frequency AS (
 regional_severity AS (
     SELECT
         Region,
+        count(*) AS severity_record_count,
         AVG(c.ClaimAmount) AS avg_claim_amount
     FROM policies AS p
     INNER JOIN claims AS c 
@@ -17,9 +19,12 @@ regional_severity AS (
     GROUP BY Region
 )
 SELECT
-    f.Region,
+    f.Region AS region,
+    f.total_policies,
+    f.total_exposure,
     f.claim_frequency,
-    s.avg_claim_amount,
+    s.severity_record_count,
+    s.avg_claim_amount AS avg_severity,
     f.claim_frequency * s.avg_claim_amount AS pure_premium_proxy
 FROM regional_frequency AS f
 INNER JOIN regional_severity AS s
