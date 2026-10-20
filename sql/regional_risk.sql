@@ -1,3 +1,9 @@
+/*
+Combine regional claim frequency and average severity to estimate a pure premium
+proxy: expected claim cost per unit of exposure. The final query checks how much
+the largest claim contributes to total claim costs in Champagne-Ardenne.
+*/
+
 WITH regional_frequency AS (
     SELECT
         Region,

@@ -1,4 +1,10 @@
--- Calculate the frequency of claims by region. The frequency of claims is calculated by the total number of claims divided by the exposure.
+/*
+Compare claim frequency by region, driver age, and fuel type using the policies table.
+Frequency is reported claims divided by total exposure, so groups with different
+amounts of time insured can be compared.
+*/
+
+-- Compare regions with more than 1,000 policies.
 
 SELECT 
     Region,
@@ -28,7 +34,7 @@ FROM policies
 GROUP BY age_group
 ORDER BY MAX(DrivAge);
 
--- Investigate frequency based on age and vehicle type. 
+-- Compare fuel types within each age group.
 
 SELECT
     CASE

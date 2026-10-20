@@ -1,3 +1,9 @@
+/*
+Explore claim severity by joining policies and claim amounts on IDpol.
+Compare average claim amounts by driver age, inspect the largest claims, and
+check the young-driver average after excluding claims of EUR 280,000 or more.
+*/
+
 -- Join claims and policies to analyze claim severity by age 
 
 SELECT

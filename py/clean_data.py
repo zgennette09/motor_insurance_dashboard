@@ -1,3 +1,8 @@
+# Check the raw freMTPL2 policy and claim files before loading them into SQLite.
+# Report data quality issues and compare reported claim counts with claim records.
+# Flag unmatched claims and convert policy IDs to integers; flagged rows are retained.
+# Replace the policies and claims tables in data/insurance.db with these datasets.
+
 from pathlib import Path
 import pandas as pd
 
@@ -7,6 +12,7 @@ DATA_DIR = ROOT_DIR / "data" / "raw"
 freq = pd.read_csv(DATA_DIR / "freMTPL2freq.csv")
 sev = pd.read_csv(DATA_DIR / "freMTPL2sev.csv")
 
+# Inspect the structure and missing values in each source file.
 for name, df in [("Policies", freq), ("Claims", sev)]:
     print(f"\n{name}")
     print("Shape:", df.shape)
@@ -71,6 +77,7 @@ sev["HasMatchingPolicy"] = sev["IDpol"].isin(freq["IDpol"])
 print(sev["HasMatchingPolicy"].value_counts())
 
 
+# Compare claim records per policy with the counts reported in the policy file.
 claim_counts = (
     sev.groupby("IDpol")
     .size()
@@ -95,7 +102,7 @@ print(comparison["Difference"].value_counts().sort_index())
 print("Policies with mismatched counts:",
       (comparison["Difference"] != 0).sum())
 
-# Store into database insurance.db
+# Replace both database tables with the checked data, including flagged rows.
 import sqlite3
 
 DATABASE_DIR = ROOT_DIR / "data" / "insurance.db"

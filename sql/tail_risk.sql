@@ -1,14 +1,7 @@
 /*
-The query discovered a large tail risk. Just 4 claims brought the young drivers average claim
-up by 3500. 
-
-A basic idea to deal with this risk is to impose a maximum claim amount. This motivates
-the following query, which is to compare the mean standard claim amount overall with the expected
-claim amount while having a maximum claim EUR 250,000, modeled by MIN(c.ClaimAmount, 250000). 
-
-This assumes a frictionless insurance market, 
-where the insurer can set any maximum claim amount and the insured will accept it. This does
-not represent any real world scenarios and should not be used to make any real world decisions.
+Explore how large claims affect the portfolio average by capping each claim at
+EUR 250,000. Compare average and total payments with the uncapped amounts.
+This is a hypothetical payment cap to illustrate tail risk, not a pricing recommendation.
 */
 
 SELECT
