@@ -1,0 +1,5 @@
+age_group,reported_claims,matched_severity_records,net_record_shortfall,net_shortfall_ratio
+Young,2364,2011,353,0.149323181049069
+Early Career,10249,7970,2279,0.222363157381208
+Middle Age,16857,12189,4668,0.276917600996619
+Senior,6632,4274,2358,0.355548854041013
